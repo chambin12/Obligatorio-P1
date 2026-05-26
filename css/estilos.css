@@ -1,0 +1,32 @@
+* {
+    font-family: Arial, sans-serif; 
+}
+body {
+    background-color: #575453;
+    margin: 10px;
+}
+/*Sections*/
+section {
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    margin: 20px auto;
+    padding: 30px 250px 0 130px;
+}
+
+/*Articles*/
+article {
+    background-color: rgb(216, 213, 213);
+    padding:15px 0 15px 25px;
+    border-radius: 8px;
+    margin: 20px auto;
+}
+
+/*Buttons*/
+button {
+    background-color: #38d5d5;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 8px 15px ;
+}

@@ -15,7 +15,7 @@ section {
 
 /*Articles*/
 article {
-    background-color: rgb(216, 213, 213);
+    background-color: rgb(236, 233, 233);
     padding:15px 0 15px 25px;
     border-radius: 8px;
     margin: 20px auto;
@@ -29,4 +29,16 @@ button {
     border-radius: 5px;
     border: none;
     padding: 8px 15px ;
+}
+
+/*Tables*/
+
+.cabeza-influencers {
+    text-align: center;
+    padding: 15px 12px 15px 12px;
+}
+table {
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: center;
 }

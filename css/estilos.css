@@ -5,6 +5,7 @@ body {
     background-color: #575453;
     margin: 10px;
 }
+
 /*Sections*/
 section {
     background-color: rgb(255, 255, 255);
@@ -16,7 +17,7 @@ section {
 /*Articles*/
 article {
     background-color: rgb(236, 233, 233);
-    padding:15px 0 15px 25px;
+    padding:20px 0 15px 25px;
     border-radius: 8px;
     margin: 20px auto;
 }
@@ -37,7 +38,11 @@ button {
     text-align: center;
 }
 
-.tabla-influencers th, td {
+.tabla-influencers th {
+    padding: 15px 12px 15px 12px;
+}
+
+.tabla-influencers td {
     padding: 15px 12px 15px 12px;
 }
 
@@ -45,4 +50,8 @@ table {
     border-collapse: collapse;
     margin-top: 15px;
     text-align: left;
+}
+
+.cabeza-ventas {
+    text-align: center;
 }

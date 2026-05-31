@@ -39,11 +39,11 @@ button {
 }
 
 .tabla-influencers th {
-    padding: 15px 12px 15px 12px;
+    padding: 15px 8px 15px 8px;
 }
 
 .tabla-influencers td {
-    padding: 15px 12px 15px 12px;
+    padding: 10px 12px 10px 12px;
 }
 
 table {
@@ -71,4 +71,12 @@ input, select {
 
 .cabeza-articulos {
     text-align: center;
+}
+
+.tabla-influencers td button {
+    padding: 15px 20px;
+}
+
+.tabla-influencers th.tablainflu-bordenombre{
+    padding: 8px;
 }

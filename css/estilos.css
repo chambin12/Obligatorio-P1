@@ -27,7 +27,7 @@ button {
     background-color: #38d5d5;
     text-align: center;
     color: white;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     padding: 15px 45px 15px 45px;
 }
@@ -67,4 +67,8 @@ input, select {
 
 .tablainflue-nombre {
     padding: 15px 25px 15px 25px;
+}
+
+.cabeza-articulos {
+    text-align: center;
 }

@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/estilos.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
     <title>Sistema de Gestión (Chambi - Soria)</title>
   </head>
   <body>
@@ -21,21 +21,21 @@
         <h3>Datos del influencer a agregar</h3>
         <h3>Influencer</h3>
         <label for="idNombre"> Nombre </label>
-        <input type="text" name="nombreInflu" id="idNombre" required />
+        <input type="text" name="nombreInflu" id="idNombre" required>
         <label for="idMail"> Mail </label>
-        <input type="email" name="mailInflu" id="idMail" required />
+        <input type="email" name="mailInflu" id="idMail" required>
         <label for="idComision"> % Comisión </label>
-        <input type="number" name="comisionInflu" id="idComision" required />
+        <input type="number" name="comisionInflu" id="idComision" required>
         <button type="button">Cancelar</button>
         <button type="button">Agregar</button>
       </article>
 
       <article>
         <h3>Tabla de influencers</h3>
-        <table class="tabla-influencers" border="1">
+        <table class="tabla-influencers">
           <thead>
             <tr class="cabeza-influencers">
-              <th class = "tablainflu-bordenombre">
+              <th class="tablainflu-bordenombre">
                 <button type="button" class="tablainflue-nombre">
                   Nombre ↑↓
                 </button>
@@ -93,20 +93,20 @@
         <h3>Datos del artículo a agregar</h3>
         <h4>Articulo</h4>
         <label for="idCodigo"> Código </label>
-        <input type="type" name="codigoArt" id="idCodigo" required />
+        <input type="text" name="codigoArt" id="idCodigo" required>
         <label for="idDescripcion"> Descripción </label>
-        <input type="text" name="descripcionArt" id="idDescripcion" required />
+        <input type="text" name="descripcionArt" id="idDescripcion" required>
         <label for="idPrecio"> Precio </label>
-        <input type="number" name="precioArt" id="idPrecio" required />
+        <input type="number" name="precioArt" id="idPrecio" required>
         <button type="button">Cancelar</button>
         <button type="button">Agregar</button>
       </article>
 
       <article>
         <h3>Tabla de artículos</h3>
-        <table border="1">
+        <table>
           <thead class="cabeza-articulos">
-            <tr">
+            <tr>
               <th><button type="button">Código ↑↓</button></th>
               <th>Descripción</th>
               <th>Precio</th>
@@ -163,7 +163,7 @@
         </select>
 
         <label for="idCant"> Cantidad </label>
-        <input type="number" name="cantidadVenta" id="idCant" required />
+        <input type="number" name="cantidadVenta" id="idCant" required>
 
         <label for="medio"> Medio </label>
         <select name="medio" id="medio">
@@ -181,7 +181,7 @@
 
       <article>
         <h3>Tabla de ventas (ordenada por número de venta)</h3>
-        <table border="1">
+        <table>
           <thead>
             <tr class="cabeza-ventas">
               <th>Nro Venta</th>

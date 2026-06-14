@@ -1,5 +1,9 @@
 class Sistemas {
-
+    constructor (){
+        this.listaDeInfluencers = [];
+        this.listaDeArticulos = [];
+        this.listaDeVentas = [];
+    }
 } 
 
 class Influencer {

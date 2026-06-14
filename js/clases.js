@@ -3,6 +3,8 @@ class Sistema {
         this.listaDeInfluencers = [];
         this.listaDeArticulos = [];
         this.listaDeVentas = [];
+        this.contadorVentas = 1;
+
     }
 } 
 
@@ -24,7 +26,8 @@ class Articulo {
 } 
 
 class Venta {
-    constructor (articulo, cantidad, influencer, medio){
+    constructor(numero, articulo, cantidad, influencer, medio){
+        this.numero = numero;
         this.articulo = articulo;
         this.cantidad = cantidad;
         this.influencer = influencer;

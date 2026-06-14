@@ -3,9 +3,9 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/estilos.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
     <title>Sistema de Gestión (Chambi - Soria)</title>
   </head>
   <body>
@@ -17,24 +17,21 @@
 
       <article>
         <h3>Alta de Influencers</h3>
-        <button type="button" id="btnAbrirInfluencer" class="agregarinflu">
-          Agregar influencer
-        </button>
+        <button type="button" class="agregarinflu">Agregar influencer</button>
       </article>
-      <dialog id="dlgInfluencer">
-        <article>
-          <h3>Datos del influencer a agregar</h3>
-          <h4>Influencer</h4>
-          <label for="idNombre">Nombre</label>
-          <input type="text" id="idNombre" />
-          <label for="idMail">Mail</label>
-          <input type="email" id="idMail" />
-          <label for="idComision">% Comisión</label>
-          <input type="number" id="idComision" min="0" max="100" />
-          <button type="button" id="btnCancelarInfluencer">Cancelar</button>
-          <button type="button" id="btnAgregarInfluencer">Agregar</button>
-        </article>
-      </dialog>
+      <article>
+        <h3>Datos del influencer a agregar</h3>
+        <h3>Influencer</h3>
+        <label for="idNombre"> Nombre </label>
+        <input type="text" name="nombreInflu" id="idNombre" required>
+        <label for="idMail"> Mail </label>
+        <input type="email" name="mailInflu" id="idMail" required>
+        <label for="idComision"> % Comisión </label>
+        <input type="number" name="comisionInflu" id="idComision" required>
+        <button type="button">Cancelar</button>
+        <button type="button">Agregar</button>
+      </article>
+
       <article>
         <h3>Tabla de influencers</h3>
         <table class="tabla-influencers">
@@ -52,7 +49,8 @@
               <th>Detalle</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+          </tbody>
         </table>
         <p>
           Información: 🔥 Top comisión (cobra más $) 🧊 Cero ventas 🟢 Venta más
@@ -66,23 +64,21 @@
 
       <article>
         <h3>Alta de Articulo</h3>
-        <button type="button" id="btnAbrirArticulo">Agregar articulo</button>
+        <button type="button">Agregar articulo</button>
       </article>
 
-      <dialog id="dlgArticulo">
-        <article>
-          <h3>Datos del artículo a agregar</h3>
-          <h4>Artículo</h4>
-          <label for="idCodigo">Código</label>
-          <input type="text" id="idCodigo" />
-          <label for="idDescripcion">Descripción</label>
-          <input type="text" id="idDescripcion" />
-          <label for="idPrecio">Precio</label>
-          <input type="number" id="idPrecio" min="0" />
-          <button type="button" id="btnCancelarArticulo">Cancelar</button>
-          <button type="button" id="btnAgregarArticulo">Agregar</button>
-        </article>
-      </dialog>
+      <article>
+        <h3>Datos del artículo a agregar</h3>
+        <h4>Articulo</h4>
+        <label for="idCodigo"> Código </label>
+        <input type="text" name="codigoArt" id="idCodigo" required>
+        <label for="idDescripcion"> Descripción </label>
+        <input type="text" name="descripcionArt" id="idDescripcion" required>
+        <label for="idPrecio"> Precio </label>
+        <input type="number" name="precioArt" id="idPrecio" required>
+        <button type="button">Cancelar</button>
+        <button type="button">Agregar</button>
+      </article>
 
       <article>
         <h3>Tabla de artículos</h3>
@@ -94,7 +90,8 @@
               <th>Precio</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+          </tbody>
         </table>
         <p>
           Información: ⭐️ Artículo más vendido (mayor cantidad de unidades
@@ -108,32 +105,42 @@
 
       <article>
         <h3>Alta de ventas</h3>
-        <button type="button" id="btnAbrirVenta">Agregar venta</button>
+        <button type="button">Agregar venta</button>
       </article>
 
-      <dialog id="dlgVenta">
-        <article>
-          <h3>Datos de la venta a agregar</h3>
-          <h4>Venta</h4>
-          <label for="idArticuloVenta">Artículo</label>
-          <select id="idArticuloVenta"></select>
-          <label for="idInfluencerVenta">Influencer</label>
-          <select id="idInfluencerVenta"></select>
-          <label for="idCantidad">Cantidad</label>
-          <input type="number" id="idCantidad" min="1" />
-          <label for="idMedio">Medio</label>
-          <select id="idMedio">
-            <option value="1">1-Instagram</option>
-            <option value="2">2-YouTube</option>
-            <option value="3">3-X</option>
-            <option value="4">4-TikTok</option>
-            <option value="5">5-Facebook</option>
-            <option value="6">6-Otras</option>
-          </select>
-          <button type="button" id="btnCancelarVenta">Cancelar</button>
-          <button type="button" id="btnAgregarVenta">Agregar</button>
-        </article>
-      </dialog>
+      <article>
+        <h3>Datos de la venta a agregar</h3>
+        <h4>Venta</h4>
+        <label for="numArt"> Nro: 3 Artículo </label>
+        <select name="numero" id="numArt">
+          <option value="A001" selected>A001</option>
+          <option value="A002">A002</option>
+          <option value="A003">A003</option>
+        </select>
+
+        <label for="influVenta"> Influencer </label>
+        <select name="influencer" id="influVenta">
+          <option value="Ana Pérez" selected>Ana Pérez</option>
+          <option value="Juan Gómez">Juan Gómez</option>
+          <option value="Lucia Martínez">Lucia Martínez</option>
+        </select>
+
+        <label for="idCant"> Cantidad </label>
+        <input type="number" name="cantidadVenta" id="idCant" required>
+
+        <label for="medio"> Medio </label>
+        <select name="medio" id="medio">
+          <option value="1-Instagram" selected>1-Instagram</option>
+          <option value="2-Youtube">2-Youtube</option>
+          <option value="3-X">3-X</option>
+          <option value="4-Tiktok">4-Tiktok</option>
+          <option value="5-Facebook">5-Facebook</option>
+          <option value="6-Otras">6-Otras</option>
+        </select>
+
+        <button type="button">Cancelar</button>
+        <button type="button">Agregar</button>
+      </article>
 
       <article>
         <h3>Tabla de ventas (ordenada por número de venta)</h3>
@@ -148,7 +155,8 @@
               <th>Acción</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+          </tbody>
         </table>
       </article>
 

@@ -1,5 +1,6 @@
-<!doctype html>
 <!-- Autores: Nahira Chambi 366979 Mathias Soria 359216 -->
+ 
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -27,11 +28,11 @@
           <h3>Datos del influencer a agregar</h3>
           <h4>Influencer</h4>
           <label for="idNombre">Nombre</label>
-          <input type="text" id="idNombre" />
+          <input type="text" id="idNombre" required/>
           <label for="idMail">Mail</label>
-          <input type="email" id="idMail" />
+          <input type="email" id="idMail" required/>
           <label for="idComision">% Comisión</label>
-          <input type="number" id="idComision" min="0" max="100" />
+          <input type="number" id="idComision" min="0" max="100" required/>
           <button type="button" id="btnCancelarInfluencer">Cancelar</button>
           <button type="button" id="btnAgregarInfluencer">Agregar</button>
         </article>

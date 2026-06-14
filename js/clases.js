@@ -1,4 +1,4 @@
-class Sistemas {
+class Sistema {
     constructor (){
         this.listaDeInfluencers = [];
         this.listaDeArticulos = [];

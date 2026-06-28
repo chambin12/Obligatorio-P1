@@ -1,75 +1,82 @@
 /* Autores: Nahira Chambi 366979 Mathias Soria 359216 */
 
-window.addEventListener("load",inicio);
+window.addEventListener("load", inicio);
 
 let sistema = new Sistema();
 let ordenInfluencers = "asc";
 let ordenArticulos = "asc";
 
-function inicio (){
+function inicio() {
     document.getElementById("btnAbrirInfluencer").addEventListener("click", abrirInfluencer);
     document.getElementById("btnCancelarInfluencer").addEventListener("click", cerrarInfluencer);
     document.getElementById("btnAgregarInfluencer").addEventListener("click", agregarInfluencer);
     document.getElementById("btnAbrirArticulo").addEventListener("click", abrirArticulo);
     document.getElementById("btnCancelarArticulo").addEventListener("click", cerrarArticulo);
     document.getElementById("btnAgregarArticulo").addEventListener("click", agregarArticulo);
+    document.getElementById("btnOrdenCodigo").addEventListener("click", cambiarOrdenArticulos);
     document.getElementById("btnAbrirVenta").addEventListener("click", abrirVenta);
-    document.getElementById("btnCancelarVenta").addEventListener("click", cerrarVenta); 
+    document.getElementById("btnCancelarVenta").addEventListener("click", cerrarVenta);
     document.getElementById("btnAgregarVenta").addEventListener("click", agregarVenta);
-    }
+}
 
 
-function abrirInfluencer () {
+// ===================== INFLUENCERS =====================
+
+function abrirInfluencer() {
     document.getElementById("dlgInfluencer").showModal();
 }
 
-function cerrarInfluencer (){
+function cerrarInfluencer() {
     limpiarFormInfluencer();
     document.getElementById("dlgInfluencer").close();
 }
 
-function agregarInfluencer (){
+function agregarInfluencer() {
     let nombre = document.getElementById("idNombre").value;
     let mail = document.getElementById("idMail").value;
     let comision = parseFloat(document.getElementById("idComision").value);
 
     let mailExiste = false;
-    for (let i=0; i < sistema.listaDeInfluencers.length; i++){
-        if (sistema.listaDeInfluencers[i].mail=== mail){
+    for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
+        if (sistema.listaDeInfluencers[i].mail === mail) {
             mailExiste = true;
         }
     }
     if (mailExiste) {
-        alert ("Ya existe un influenceer con este mail.");
+        alert("Ya existe un influenceer con este mail.");
         return;
     }
 
-    let nuevoInfluencer = new Influencer (nombre, mail, comision);
+    let nuevoInfluencer = new Influencer(nombre, mail, comision);
     sistema.listaDeInfluencers.push(nuevoInfluencer);
 
     let tbody = document.getElementById("tbodyInfluencers");
-tbody.innerHTML = "";
+    tbody.innerHTML = "";
 
-for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
-    let influ = sistema.listaDeInfluencers[i];
-    let fila = "<tr>";
-    fila += "<td>" + influ.nombre + "</td>";
-    fila += "<td>" + influ.mail + "</td>";
-    fila += "<td>" + influ.comision + "%" + "</td>";
-    fila += "<td>$ 0</td>";
-    fila += "<td></td>";
-    fila += "<td><button type='button'>Ventas</button></td>";
-    fila += "</tr>";
-    tbody.innerHTML += fila;
+    for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
+        let influ = sistema.listaDeInfluencers[i];
+        let fila = "<tr>";
+        fila += "<td>" + influ.nombre + "</td>";
+        fila += "<td>" + influ.mail + "</td>";
+        fila += "<td>" + influ.comision + "%" + "</td>";
+        fila += "<td>$ 0</td>";
+        fila += "<td></td>";
+        fila += "<td><button type='button'>Ventas</button></td>";
+        fila += "</tr>";
+        tbody.innerHTML += fila;
+    }
+
+    cerrarInfluencer();
 }
-    cerrarInfluencer ();
-}   
 
-function abrirArticulo(){
+
+// ===================== ARTÍCULOS =====================
+
+function abrirArticulo() {
     document.getElementById("dlgArticulo").showModal();
 }
 
-function cerrarArticulo(){
+function cerrarArticulo() {
     limpiarFormArticulo();
     document.getElementById("dlgArticulo").close();
 }
@@ -102,9 +109,21 @@ function agregarArticulo() {
     pintarTablaArticulos();
 }
 
+function ordenarArticulos() {
+    sistema.listaDeArticulos.sort(function (a, b) {
+        if (ordenArticulos === "asc") {
+            return a.codigo.localeCompare(b.codigo);
+        } else {
+            return b.codigo.localeCompare(a.codigo);
+        }
+    });
+}
+
 function pintarTablaArticulos() {
     let tabla = document.getElementById("tbodyArticulos");
     let contenido = "";
+
+    ordenarArticulos(); // ordeno la lista según la dirección actual antes de dibujar
 
     for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
         let articulo = sistema.listaDeArticulos[i];
@@ -118,31 +137,42 @@ function pintarTablaArticulos() {
     tabla.innerHTML = contenido;
 }
 
-function abrirVenta(){
+function cambiarOrdenArticulos() {
+    if (ordenArticulos === "asc") {
+        ordenArticulos = "desc";
+    } else {
+        ordenArticulos = "asc";
+    }
+    pintarTablaArticulos();
+}
+
+
+// ===================== VENTAS =====================
+
+function abrirVenta() {
     if (sistema.listaDeInfluencers.length === 0 || sistema.listaDeArticulos.length === 0) {
         alert("Debe haber al menos un artículo y un influencer registrados.");
     } else {
-    cargarSelectsVenta();
-    document.getElementById("dlgVenta").showModal();
+        cargarSelectsVenta();
+        document.getElementById("dlgVenta").showModal();
     }
 }
-function cargarSelectsVenta (){
+
+function cargarSelectsVenta() {
 
 }
 
-function agregarVenta (){
-    alert ("Ventu");
+function agregarVenta() {
+    alert("Ventu");
 }
 
-
-function cerrarVenta (){
+function cerrarVenta() {
     limpiarFormVenta();
     document.getElementById("dlgVenta").close();
 }
 
 
-
-// --- Limpiar formularios ---
+// ===================== LIMPIAR FORMULARIOS =====================
 
 function limpiarFormInfluencer() {
     document.getElementById("idNombre").value = "";

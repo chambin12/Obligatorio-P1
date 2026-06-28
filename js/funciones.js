@@ -60,7 +60,7 @@ function agregarInfluencer() {
         let nuevoInfluencer = new Influencer(nombre, mail, comision);
         sistema.listaDeInfluencers.push(nuevoInfluencer);
         cargarTabla();
-        cerrarInfluencer();
+        limpiarFormInfluencer ();
     }
 }
 
@@ -98,6 +98,7 @@ function cargarTabla() {
         celdaEtiquetas.innerHTML = medallas;
 
         let celdaDetalle = fila.insertCell();
+
         celdaDetalle.innerHTML = "<button type='button'>Ventas</button>";
     }
 
@@ -177,7 +178,7 @@ function agregarArticulo() {
     let nuevoArticulo = new Articulo(codigo, descripcion, precio);
     sistema.listaDeArticulos.push(nuevoArticulo);
 
-    cerrarArticulo();
+    limpiarFormArticulo();
     pintarTablaArticulos();
 }
 
@@ -304,7 +305,7 @@ function agregarVenta() {
     sistema.listaDeVentas.push(nuevaVenta);
     sistema.contadorVentas = sistema.contadorVentas + 1;
 
-    cerrarVenta();
+    limpiarFormVenta();
     pintarTablaVentas();
     cargarTabla();
     pintarTablaArticulos();

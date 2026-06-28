@@ -6,7 +6,16 @@ class Sistema {
         this.contadorVentas = 1;
 
     }
+
+    darInfluencer (){
+        return this.listaDeInfluencers;
+    }
+
+    darVentas () {
+        return this.listaDeVentas;
+    }
 } 
+
 
 class Influencer {
     constructor (nombre, mail, comision){
@@ -15,6 +24,7 @@ class Influencer {
         this.comision = comision;
     }
 }
+
 
 class Articulo {
     constructor (codigo, descripcion, precio){

@@ -1,3 +1,4 @@
+/* Autores: Nahira Chambi 366979 Mathias Soria 359216 */
 class Sistema {
     constructor (){
         this.listaDeInfluencers = [];

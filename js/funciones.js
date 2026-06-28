@@ -35,7 +35,7 @@ function agregarInfluencer (){
 
     let mailExiste = false;
     for (let i=0; i < sistema.listaDeInfluencers.length; i++){
-        if (sistema.listaDeInfluencers[i].mail=== mail.value){
+        if (sistema.listaDeInfluencers[i].mail=== mail){
             mailExiste = true;
         }
     }
@@ -44,8 +44,24 @@ function agregarInfluencer (){
         return;
     }
 
-    let nuevoInfluencer = new Influencer (nombre.value, mail.value, parseFloat (comision.value));
+    let nuevoInfluencer = new Influencer (nombre, mail, comision);
     sistema.listaDeInfluencers.push(nuevoInfluencer);
+
+    let tbody = document.getElementById("tbodyInfluencers");
+tbody.innerHTML = "";
+
+for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
+    let influ = sistema.listaDeInfluencers[i];
+    let fila = "<tr>";
+    fila += "<td>" + influ.nombre + "</td>";
+    fila += "<td>" + influ.mail + "</td>";
+    fila += "<td>" + influ.comision + "%" + "</td>";
+    fila += "<td>$ 0</td>";
+    fila += "<td></td>";
+    fila += "<td><button type='button'>Ventas</button></td>";
+    fila += "</tr>";
+    tbody.innerHTML += fila;
+}
     cerrarInfluencer ();
 }   
 

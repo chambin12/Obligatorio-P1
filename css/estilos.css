@@ -28,15 +28,12 @@ dialog {
     border: none;
     border-radius: 8px;
     padding: 0;
-<<<<<<< Updated upstream
-=======
     width: 1100px;
 }
 
 #idComision {
     margin-left: 10px;
     width: 120px;
->>>>>>> Stashed changes
 }
 
 dialog::backdrop {

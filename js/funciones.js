@@ -24,12 +24,8 @@ function inicio() {
     document.getElementById("btnAbrirVenta").addEventListener("click", abrirVenta);
     document.getElementById("btnCancelarVenta").addEventListener("click", cerrarVenta);
     document.getElementById("btnAgregarVenta").addEventListener("click", agregarVenta);
-<<<<<<< Updated upstream
-}
-=======
     cargarTabla ();
     }
->>>>>>> Stashed changes
 
 
 // ===================== INFLUENCERS =====================
@@ -43,12 +39,8 @@ function cerrarInfluencer() {
     document.getElementById("dlgInfluencer").close();
 }
 
-<<<<<<< Updated upstream
-function agregarInfluencer() {
-=======
 function agregarInfluencer (){
     if (document.getElementById ("idFormInfluencer").reportValidity()){
->>>>>>> Stashed changes
     let nombre = document.getElementById("idNombre").value;
     let mail = document.getElementById("idMail").value;
     let comision = parseFloat(document.getElementById("idComision").value);
@@ -71,26 +63,6 @@ function agregarInfluencer (){
     } 
     }     
 
-<<<<<<< Updated upstream
-    let tbody = document.getElementById("tbodyInfluencers");
-    tbody.innerHTML = "";
-
-    for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
-        let influ = sistema.listaDeInfluencers[i];
-        let fila = "<tr>";
-        fila += "<td>" + influ.nombre + "</td>";
-        fila += "<td>" + influ.mail + "</td>";
-        fila += "<td>" + influ.comision + "%" + "</td>";
-        fila += "<td>$ 0</td>";
-        fila += "<td></td>";
-        fila += "<td><button type='button'>Ventas</button></td>";
-        fila += "</tr>";
-        tbody.innerHTML += fila;
-    }
-
-    cerrarInfluencer();
-}
-=======
     function cargarTabla (){
     let tbodyInflu = document.getElementById("tbodyInfluencers");
     tbodyInflu.innerHTML = "";
@@ -140,7 +112,6 @@ function agregarInfluencer (){
         return total;
     }
 
->>>>>>> Stashed changes
 
 
 // ===================== ARTÍCULOS =====================

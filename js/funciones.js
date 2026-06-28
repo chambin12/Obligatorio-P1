@@ -52,7 +52,7 @@ function agregarInfluencer() {
             }
         }
         if (mailExiste) {
-            alert("Ya existe un influenceer con este mail.");
+            alert("Ya existe un influencer con este mail.");
             return;
         }
 

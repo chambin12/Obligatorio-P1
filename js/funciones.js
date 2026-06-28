@@ -203,11 +203,99 @@ function abrirVenta() {
 }
 
 function cargarSelectsVenta() {
+    let selectArticulo = document.getElementById("idArticuloVenta");
+    let selectInfluencer = document.getElementById("idInfluencerVenta");
 
+    selectArticulo.innerHTML = "";
+    for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
+        let articulo = sistema.listaDeArticulos[i];
+        selectArticulo.innerHTML += "<option value='" + articulo.codigo + "'>" + articulo.codigo + " - " + articulo.descripcion + "</option>";
+    }
+
+    selectInfluencer.innerHTML = "";
+    for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
+        let influ = sistema.listaDeInfluencers[i];
+        selectInfluencer.innerHTML += "<option value='" + influ.mail + "'>" + influ.nombre + "</option>";
+    }
 }
 
 function agregarVenta() {
-    alert("Ventu");
+    let codigoArticulo = document.getElementById("idArticuloVenta").value;
+    let mailInfluencer = document.getElementById("idInfluencerVenta").value;
+    let cantidad = parseInt(document.getElementById("idCantidad").value);
+
+    let selectMedio = document.getElementById("idMedio");
+    let medio = selectMedio.options[selectMedio.selectedIndex].text;
+
+    if (isNaN(cantidad) || cantidad < 1) {
+        alert("La cantidad debe ser un número mayor o igual a 1.");
+        return;
+    }
+
+    let articuloElegido = null;
+    for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
+        if (sistema.listaDeArticulos[i].codigo === codigoArticulo) {
+            articuloElegido = sistema.listaDeArticulos[i];
+        }
+    }
+
+    let influencerElegido = null;
+    for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
+        if (sistema.listaDeInfluencers[i].mail === mailInfluencer) {
+            influencerElegido = sistema.listaDeInfluencers[i];
+        }
+    }
+
+    let nuevaVenta = new Venta(sistema.contadorVentas, articuloElegido, cantidad, influencerElegido, medio);
+    sistema.listaDeVentas.push(nuevaVenta);
+    sistema.contadorVentas = sistema.contadorVentas + 1;
+
+    cerrarVenta();
+    pintarTablaVentas();
+    cargarTabla(); // refresco influencers: total a cobrar y medallas dependen de las ventas
+}
+
+function pintarTablaVentas() {
+    let tabla = document.getElementById("tbodyVentas");
+    tabla.innerHTML = "";
+
+    for (let i = 0; i < sistema.listaDeVentas.length; i++) {
+        let venta = sistema.listaDeVentas[i];
+
+        let fila = tabla.insertRow();
+        fila.insertCell().innerHTML = venta.numero;
+        fila.insertCell().innerHTML = venta.articulo.codigo;
+        fila.insertCell().innerHTML = venta.influencer.nombre;
+        fila.insertCell().innerHTML = venta.cantidad;
+        fila.insertCell().innerHTML = venta.medio;
+
+        let celdaAccion = fila.insertCell();
+        let boton = document.createElement("button");
+        boton.type = "button";
+        boton.innerHTML = "Eliminar";
+        boton.addEventListener("click", function () {
+            eliminarVenta(venta.numero);
+        });
+        celdaAccion.appendChild(boton);
+    }
+}
+
+function eliminarVenta(numero) {
+    let confirmacion = confirm("¿Seguro que querés eliminar la venta número " + numero + "?");
+    if (confirmacion === false) {
+        return;
+    }
+
+    let seguir = true;
+    for (let i = 0; i < sistema.listaDeVentas.length && seguir; i++) {
+        if (sistema.listaDeVentas[i].numero === numero) {
+            sistema.listaDeVentas.splice(i, 1);
+            seguir = false;
+        }
+    }
+
+    pintarTablaVentas();
+    cargarTabla(); // al borrar una venta también cambian totales y medallas
 }
 
 function cerrarVenta() {

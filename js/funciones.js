@@ -25,6 +25,7 @@ function inicio() {
     document.getElementById("btnCancelarVenta").addEventListener("click", cerrarVenta);
     document.getElementById("btnAgregarVenta").addEventListener("click", agregarVenta);
     cargarTabla();
+    dibujarGrafico();
 }
 
 
@@ -169,10 +170,24 @@ function pintarTablaArticulos() {
 
     ordenarArticulos();
 
+    let maxUnidades = 0;
+    for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
+        let unidades = calcularUnidadesVendidas(sistema.listaDeArticulos[i]);
+        if (unidades > maxUnidades) {
+            maxUnidades = unidades;
+        }
+    }
+
     for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
         let articulo = sistema.listaDeArticulos[i];
+
+        let medalla = "";
+        if (calcularUnidadesVendidas(articulo) === maxUnidades && maxUnidades > 0) {
+            medalla = " ⭐";
+        }
+
         contenido = contenido + "<tr>";
-        contenido = contenido + "<td>" + articulo.codigo + "</td>";
+        contenido = contenido + "<td>" + articulo.codigo + medalla + "</td>";
         contenido = contenido + "<td>" + articulo.descripcion + "</td>";
         contenido = contenido + "<td>$" + articulo.precio + "</td>";
         contenido = contenido + "</tr>";
@@ -190,6 +205,16 @@ function cambiarOrdenArticulos() {
     pintarTablaArticulos();
 }
 
+function calcularUnidadesVendidas(articulo) {
+    let total = 0;
+    for (let elem of sistema.darVentas()) {
+        if (elem.articulo === articulo) {
+            total = total + elem.cantidad;
+        }
+    }
+    return total;
+}
+
 
 // ===================== VENTAS =====================
 
@@ -203,6 +228,8 @@ function abrirVenta() {
 }
 
 function cargarSelectsVenta() {
+    document.getElementById("idNumeroVenta").innerHTML = sistema.contadorVentas;
+
     let selectArticulo = document.getElementById("idArticuloVenta");
     let selectInfluencer = document.getElementById("idInfluencerVenta");
 
@@ -252,7 +279,9 @@ function agregarVenta() {
 
     cerrarVenta();
     pintarTablaVentas();
-    cargarTabla(); // refresco influencers: total a cobrar y medallas dependen de las ventas
+    cargarTabla();
+    pintarTablaArticulos();
+    dibujarGrafico();
 }
 
 function pintarTablaVentas() {
@@ -295,7 +324,9 @@ function eliminarVenta(numero) {
     }
 
     pintarTablaVentas();
-    cargarTabla(); // al borrar una venta también cambian totales y medallas
+    cargarTabla();
+    pintarTablaArticulos();
+    dibujarGrafico();
 }
 
 function cerrarVenta() {
@@ -321,4 +352,69 @@ function limpiarFormArticulo() {
 function limpiarFormVenta() {
     document.getElementById("idCantidad").value = "";
     document.getElementById("idMedio").selectedIndex = 0;
+}
+
+
+// ===================== DIBUJAR GRÁFICO =====================
+
+function dibujarGrafico() {
+    let medios = ["1-Instagram", "2-YouTube", "3-X", "4-TikTok", "5-Facebook", "6-Otras"];
+    let colores = ["#E1306C", "#FF0000", "#000000", "#25F4EE", "#1877F2", "#888888"];
+
+    let montos = [];
+    for (let i = 0; i < medios.length; i++) {
+        let totalMedio = 0;
+        for (let j = 0; j < sistema.listaDeVentas.length; j++) {
+            let venta = sistema.listaDeVentas[j];
+            if (venta.medio === medios[i]) {
+                totalMedio = totalMedio + venta.cantidad * venta.articulo.precio;
+            }
+        }
+        montos.push(totalMedio);
+    }
+
+    let minMonto = montos[0];
+    let maxMonto = montos[0];
+    for (let i = 1; i < montos.length; i++) {
+        if (montos[i] < minMonto) {
+            minMonto = montos[i];
+        }
+        if (montos[i] > maxMonto) {
+            maxMonto = montos[i];
+        }
+    }
+
+    let contenedor = document.getElementById("graficoBurbujas");
+    contenedor.innerHTML = "";
+    contenedor.style.display = "flex";
+    contenedor.style.alignItems = "flex-end";
+    contenedor.style.gap = "20px";
+
+    let radioMax = 60;
+
+    for (let i = 0; i < medios.length; i++) {
+        let porcentaje;
+        if (maxMonto === minMonto) {
+            porcentaje = 100;
+        } else {
+            porcentaje = 10 + (montos[i] - minMonto) / (maxMonto - minMonto) * 90;
+        }
+
+        let radio = radioMax * porcentaje / 100;
+        let diametro = radio * 2;
+
+        let burbuja = document.createElement("div");
+        burbuja.style.width = diametro + "px";
+        burbuja.style.height = diametro + "px";
+        burbuja.style.borderRadius = "50%";
+        burbuja.style.backgroundColor = colores[i];
+        burbuja.style.color = "white";
+        burbuja.style.display = "flex";
+        burbuja.style.alignItems = "center";
+        burbuja.style.justifyContent = "center";
+        burbuja.style.textAlign = "center";
+        burbuja.innerHTML = "$" + montos[i];
+
+        contenedor.appendChild(burbuja);
+    }
 }

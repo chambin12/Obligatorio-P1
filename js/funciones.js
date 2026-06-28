@@ -74,8 +74,48 @@ function cerrarArticulo(){
     document.getElementById("dlgArticulo").close();
 }
 
-function agregarArticulo (){
-    alert ("Artitu");
+function agregarArticulo() {
+    let codigo = document.getElementById("idCodigo").value;
+    let descripcion = document.getElementById("idDescripcion").value;
+    let precio = parseFloat(document.getElementById("idPrecio").value);
+
+    if (codigo === "" || descripcion === "" || isNaN(precio)) {
+        alert("Todos los campos son obligatorios.");
+        return;
+    }
+
+    let codigoExiste = false;
+    for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
+        if (sistema.listaDeArticulos[i].codigo === codigo) {
+            codigoExiste = true;
+        }
+    }
+    if (codigoExiste) {
+        alert("Ya existe un artículo con ese código.");
+        return;
+    }
+
+    let nuevoArticulo = new Articulo(codigo, descripcion, precio);
+    sistema.listaDeArticulos.push(nuevoArticulo);
+
+    cerrarArticulo();
+    pintarTablaArticulos();
+}
+
+function pintarTablaArticulos() {
+    let tabla = document.getElementById("tbodyArticulos");
+    let contenido = "";
+
+    for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
+        let articulo = sistema.listaDeArticulos[i];
+        contenido = contenido + "<tr>";
+        contenido = contenido + "<td>" + articulo.codigo + "</td>";
+        contenido = contenido + "<td>" + articulo.descripcion + "</td>";
+        contenido = contenido + "<td>$" + articulo.precio + "</td>";
+        contenido = contenido + "</tr>";
+    }
+
+    tabla.innerHTML = contenido;
 }
 
 function abrirVenta(){

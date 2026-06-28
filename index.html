@@ -1,5 +1,5 @@
 <!-- Autores: Nahira Chambi 366979 Mathias Soria 359216 -->
- 
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -28,11 +28,11 @@
           <h3>Datos del influencer a agregar</h3>
           <h4>Influencer</h4>
           <label for="idNombre">Nombre</label>
-          <input type="text" id="idNombre" required/>
+          <input type="text" id="idNombre" required />
           <label for="idMail">Mail</label>
-          <input type="email" id="idMail" required/>
+          <input type="email" id="idMail" required />
           <label for="idComision">% Comisión</label>
-          <input type="number" id="idComision" min="0" max="100" required/>
+          <input type="number" id="idComision" min="0" max="100" required />
           <button type="button" id="btnCancelarInfluencer">Cancelar</button>
           <button type="button" id="btnAgregarInfluencer">Agregar</button>
         </article>
@@ -44,7 +44,11 @@
           <thead>
             <tr class="cabeza-influencers">
               <th class="tablainflu-bordenombre">
-                <button type="button" id="btnOrdenNombre" class="tablainflue-nombre">
+                <button
+                  type="button"
+                  id="btnOrdenNombre"
+                  class="tablainflue-nombre"
+                >
                   Nombre ↑↓
                 </button>
               </th>
@@ -77,11 +81,11 @@
           <h3>Datos del artículo a agregar</h3>
           <h4>Artículo</h4>
           <label for="idCodigo">Código</label>
-          <input type="text" id="idCodigo" />
+          <input type="text" id="idCodigo" required />
           <label for="idDescripcion">Descripción</label>
-          <input type="text" id="idDescripcion" />
+          <input type="text" id="idDescripcion" required />
           <label for="idPrecio">Precio</label>
-          <input type="number" id="idPrecio" min="0" />
+          <input type="number" id="idPrecio" min="0" required />
           <button type="button" id="btnCancelarArticulo">Cancelar</button>
           <button type="button" id="btnAgregarArticulo">Agregar</button>
         </article>
@@ -102,7 +106,8 @@
           <tbody id="tbodyArticulos"></tbody>
         </table>
         <p>
-          Información: ⭐ Artículo más vendido (mayor cantidad de unidades vendidas)
+          Información: ⭐ Artículo más vendido (mayor cantidad de unidades
+          vendidas)
         </p>
       </article>
     </section>

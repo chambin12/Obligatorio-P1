@@ -93,7 +93,12 @@ function cargarTabla() {
 
         let celdaDetalle = fila.insertCell();
 
-        celdaDetalle.innerHTML = "<button type='button'>Ventas</button>";
+        let botonVentas = document.createElement("button");
+        botonVentas.innerHTML = "Ventas";
+        botonVentas.addEventListener("click", function () {
+            mostrarDetalleComision(elem);
+        });
+        celdaDetalle.appendChild(botonVentas);    
     }
 
 }
@@ -136,6 +141,17 @@ function calcularTotalInfluencer(influencer) {
     return total;
 }
 
+function mostrarDetalleComision(influencer) {
+    let texto = "Ventas:\n";
+    for (let elem of sistema.darVentas()) {
+        if (elem.influencer === influencer) {
+            let total = elem.cantidad * elem.articulo.precio;
+            let comision = total * influencer.comision / 100;
+            texto = texto + "Nro " + elem.numero + " - " + elem.articulo.codigo + " - " + elem.cantidad + " - $" + elem.articulo.precio + " c/u - Total: $" + total + " - Comisión: $" + comision + "\n";
+        }
+    }
+    alert(texto);
+}
 
 // ===================== ARTÍCULOS =====================
 
@@ -323,7 +339,7 @@ function pintarTablaVentas() {
         let celdaAccion = fila.insertCell();
         let boton = document.createElement("button");
         boton.type = "button";
-        boton.innerHTML = "Eliminar";
+        boton.innerHTML = "❌";
         boton.addEventListener("click", function () {
             eliminarVenta(venta.numero);
         });
@@ -332,7 +348,7 @@ function pintarTablaVentas() {
 }
 
 function eliminarVenta(numero) {
-    let confirmacion = confirm("¿Seguro que querés eliminar la venta número " + numero + "?");
+    let confirmacion = confirm("¿Eliminar la fila?");
     if (confirmacion === false) {
         return;
     }

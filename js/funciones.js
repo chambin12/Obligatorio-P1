@@ -24,8 +24,8 @@ function inicio() {
     document.getElementById("btnAbrirVenta").addEventListener("click", abrirVenta);
     document.getElementById("btnCancelarVenta").addEventListener("click", cerrarVenta);
     document.getElementById("btnAgregarVenta").addEventListener("click", agregarVenta);
-    cargarTabla ();
-    }
+    cargarTabla();
+}
 
 
 // ===================== INFLUENCERS =====================
@@ -39,79 +39,79 @@ function cerrarInfluencer() {
     document.getElementById("dlgInfluencer").close();
 }
 
-function agregarInfluencer (){
-    if (document.getElementById ("idFormInfluencer").reportValidity()){
-    let nombre = document.getElementById("idNombre").value;
-    let mail = document.getElementById("idMail").value;
-    let comision = parseFloat(document.getElementById("idComision").value);
+function agregarInfluencer() {
+    if (document.getElementById("idFormInfluencer").reportValidity()) {
+        let nombre = document.getElementById("idNombre").value;
+        let mail = document.getElementById("idMail").value;
+        let comision = parseFloat(document.getElementById("idComision").value);
 
-    let mailExiste = false;
-    for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
-        if (sistema.listaDeInfluencers[i].mail === mail) {
-            mailExiste = true;
+        let mailExiste = false;
+        for (let i = 0; i < sistema.listaDeInfluencers.length; i++) {
+            if (sistema.listaDeInfluencers[i].mail === mail) {
+                mailExiste = true;
+            }
         }
-    }
-    if (mailExiste) {
-        alert("Ya existe un influenceer con este mail.");
-        return;
-    }
+        if (mailExiste) {
+            alert("Ya existe un influenceer con este mail.");
+            return;
+        }
 
-    let nuevoInfluencer = new Influencer(nombre, mail, comision);
-    sistema.listaDeInfluencers.push(nuevoInfluencer);
-        limpiarFormInfluencer();
-        cargarTabla ();
-    } 
-    }     
+        let nuevoInfluencer = new Influencer(nombre, mail, comision);
+        sistema.listaDeInfluencers.push(nuevoInfluencer);
+        cargarTabla();
+        cerrarInfluencer();
+    }
+}
 
-    function cargarTabla (){
+function cargarTabla() {
     let tbodyInflu = document.getElementById("tbodyInfluencers");
     tbodyInflu.innerHTML = "";
     let influ = sistema.darInfluencer();
 
     let maxTotal = 0;
-    for (let elem of influ){
+    for (let elem of influ) {
         let total = calcularTotalInfluencer(elem);
         if (total > maxTotal) {
             maxTotal = total;
         }
     }
-        for (let elem of influ){
-            let fila = tbodyInflu.insertRow();
-            let celdaNombre = fila.insertCell();
-            celdaNombre.innerHTML = elem.nombre;
-            let celdaMail = fila.insertCell();
-            celdaMail.innerHTML = elem.mail;
-            let celdaComision = fila.insertCell();
-            celdaComision.innerHTML = elem.comision + "%";
-            
-            let celdaTotal = fila.insertCell();
-            celdaTotal.innerHTML = calcularTotalInfluencer (elem);
-            let celdaEtiquetas = fila.insertCell();
-            //revisar si defino variable o tomo directamente calcular
-            let totalElem = calcularTotalInfluencer(elem);
-            let medallas = "";
-            if (totalElem === 0) {
-                medallas = "🧊";
-            } else if (totalElem === maxTotal && maxTotal > 0) {
-                medallas = "🔥";
-            }
-            celdaEtiquetas.innerHTML = medallas;
-            let celdaDetalle = fila.insertCell();
-            celdaDetalle.innerHTML = "<button type='button'>Ventas</button>";   
-        }
-    }
-    
-    
-    function calcularTotalInfluencer (influencer){
-        let total = 0;
-        for (elem of sistema.darVentas()){
-            if (elem.influencer === influencer){
-                total = total + elem.cantidad * elem.articulo.precio * (influencer.comision / 100);
-            }
-        }
-        return total;
-    }
 
+    for (let elem of influ) {
+        let fila = tbodyInflu.insertRow();
+        let celdaNombre = fila.insertCell();
+        celdaNombre.innerHTML = elem.nombre;
+        let celdaMail = fila.insertCell();
+        celdaMail.innerHTML = elem.mail;
+        let celdaComision = fila.insertCell();
+        celdaComision.innerHTML = elem.comision + "%";
+
+        let celdaTotal = fila.insertCell();
+        celdaTotal.innerHTML = "$ " + calcularTotalInfluencer(elem);
+
+        let celdaEtiquetas = fila.insertCell();
+        let totalElem = calcularTotalInfluencer(elem);
+        let medallas = "";
+        if (totalElem === 0) {
+            medallas = "🧊";
+        } else if (totalElem === maxTotal && maxTotal > 0) {
+            medallas = "🔥";
+        }
+        celdaEtiquetas.innerHTML = medallas;
+
+        let celdaDetalle = fila.insertCell();
+        celdaDetalle.innerHTML = "<button type='button'>Ventas</button>";
+    }
+}
+
+function calcularTotalInfluencer(influencer) {
+    let total = 0;
+    for (let elem of sistema.darVentas()) {
+        if (elem.influencer === influencer) {
+            total = total + elem.cantidad * elem.articulo.precio * (influencer.comision / 100);
+        }
+    }
+    return total;
+}
 
 
 // ===================== ARTÍCULOS =====================
@@ -167,7 +167,7 @@ function pintarTablaArticulos() {
     let tabla = document.getElementById("tbodyArticulos");
     let contenido = "";
 
-    ordenarArticulos(); // ordeno la lista según la dirección actual antes de dibujar
+    ordenarArticulos();
 
     for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
         let articulo = sistema.listaDeArticulos[i];

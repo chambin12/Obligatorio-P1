@@ -11,6 +11,7 @@ function inicio() {
     document.getElementById("btnAbrirInfluencer").addEventListener("click", abrirInfluencer);
     document.getElementById("btnCancelarInfluencer").addEventListener("click", cerrarInfluencer);
     document.getElementById("btnAgregarInfluencer").addEventListener("click", agregarInfluencer);
+    document.getElementById("btnOrdenNombre").addEventListener("click", cambiarOrdenInfluencer);
     document.getElementById("btnAbrirArticulo").addEventListener("click", abrirArticulo);
     document.getElementById("btnCancelarArticulo").addEventListener("click", cerrarArticulo);
     document.getElementById("btnAgregarArticulo").addEventListener("click", agregarArticulo);
@@ -54,11 +55,31 @@ function agregarInfluencer() {
         let nuevoInfluencer = new Influencer(nombre, mail, comision);
         sistema.listaDeInfluencers.push(nuevoInfluencer);
         cargarTabla();
-        limpiarFormInfluencer ();
+        limpiarFormInfluencer();
     }
 }
 
+function ordenarInfluencers() {
+    sistema.listaDeInfluencers.sort(function (a, b) {
+        if (ordenInfluencers === "asc") {
+            return a.nombre.localeCompare(b.nombre);
+        } else {
+            return b.nombre.localeCompare(a.nombre);
+        }
+    });
+}
+
+function cambiarOrdenInfluencer() {
+    if (ordenInfluencers === "asc") {
+        ordenInfluencers = "desc";
+    } else {
+        ordenInfluencers = "asc";
+    }
+    cargarTabla();
+}
+
 function cargarTabla() {
+    ordenarInfluencers();
     let tbodyInflu = document.getElementById("tbodyInfluencers");
     tbodyInflu.innerHTML = "";
     let influ = sistema.darInfluencer();
@@ -86,24 +107,22 @@ function cargarTabla() {
         } else if (totalElem === maxTotal && maxTotal > 0) {
             medallas = "🔥";
         }
-        if (elem === influencerVentaCara){
-            medallas = medallas + "🟢"
+        if (elem === influencerVentaCara) {
+            medallas = medallas + "🟢";
         }
         celdaEtiquetas.innerHTML = medallas;
 
         let celdaDetalle = fila.insertCell();
-
         let botonVentas = document.createElement("button");
         botonVentas.innerHTML = "Ventas";
         botonVentas.addEventListener("click", function () {
             mostrarDetalleComision(elem);
         });
-        celdaDetalle.appendChild(botonVentas);    
+        celdaDetalle.appendChild(botonVentas);
     }
-
 }
 
-function calcularMaxTotal (){
+function calcularMaxTotal() {
     let maxTotal = 0;
     let influ = sistema.darInfluencer();
 
@@ -116,19 +135,18 @@ function calcularMaxTotal (){
     return maxTotal;
 }
 
-function calcularInfluencerVentaCara(){
+function calcularInfluencerVentaCara() {
     let influencerVentaCara = "";
     let maxVenta = 0;
 
-    for (let elem of sistema.darVentas()){
+    for (let elem of sistema.darVentas()) {
         let monto = elem.cantidad * elem.articulo.precio;
-        if (monto > maxVenta){
+        if (monto > maxVenta) {
             maxVenta = monto;
             influencerVentaCara = elem.influencer;
         }
     }
     return influencerVentaCara;
-
 }
 
 function calcularTotalInfluencer(influencer) {
@@ -152,6 +170,7 @@ function mostrarDetalleComision(influencer) {
     }
     alert(texto);
 }
+
 
 // ===================== ARTÍCULOS =====================
 

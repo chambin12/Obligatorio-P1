@@ -4,12 +4,6 @@ window.addEventListener("load", inicio);
 
 let sistema = new Sistema();
 
-// Datos de prueba temporales - BORRAR ANTES DE ENTREGAR
-let inf1 = new Influencer("Ana", "ana@mail.com", 10);
-let inf2 = new Influencer("Juan", "juan@mail.com", 20);
-sistema.listaDeInfluencers.push(inf1);
-sistema.listaDeInfluencers.push(inf2);
-
 let ordenInfluencers = "asc";
 let ordenArticulos = "asc";
 

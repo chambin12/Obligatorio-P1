@@ -124,15 +124,21 @@ function cargarTabla() {
 
 function mostrarDetalleComision(influencer) {
     if (!influencer.tieneVentas(sistema.darVentas())) {
-        alert("Este influencer no tiene ventas registradas.");
+        alert("Ventas: \n sin datos");
         return;
     }
+
+    let ventas = sistema.darVentas();
+    ventas.sort(function(a, b){
+        return a.numero - b.numero;
+    });
+
     let texto = "Ventas:\n";
-    for (let elem of sistema.darVentas()) {
+    for (let elem of ventas) {
         if (elem.influencer === influencer) {
             let total = elem.calcularMonto();
             let comision = elem.calcularComision();
-            texto = texto + "Nro " + elem.numero + " - " + elem.articulo.codigo + " - " + elem.cantidad + " - $" + elem.articulo.precio + " c/u - Total: $" + total + " - Comisión: $" + comision + "\n";
+            texto = texto + "Nro " + elem.numero + "→ " + elem.articulo.codigo + "→" + elem.cantidad + " → $" + elem.articulo.precio + " c/u Total $" + total + "→ Comisión: $" + comision + "\n";
         }
     }
     alert(texto);
@@ -210,7 +216,7 @@ function pintarTablaArticulos() {
         contenido = contenido + "<tr>";
         contenido = contenido + "<td>" + articulo.codigo + medalla + "</td>";
         contenido = contenido + "<td>" + articulo.descripcion + "</td>";
-        contenido = contenido + "<td>$" + articulo.precio + "</td>";
+        contenido = contenido + "<td>" + articulo.precio + "</td>";
         contenido = contenido + "</tr>";
     }
 
@@ -257,17 +263,13 @@ function cargarSelectsVenta() {
 }
 
 function agregarVenta() {
+    if (document.getElementById ("idFormVenta").reportValidity()){
     let codigoArticulo = document.getElementById("idArticuloVenta").value;
     let mailInfluencer = document.getElementById("idInfluencerVenta").value;
     let cantidad = parseInt(document.getElementById("idCantidad").value);
 
     let selectMedio = document.getElementById("idMedio");
     let medio = selectMedio.options[selectMedio.selectedIndex].text;
-
-    if (isNaN(cantidad) || cantidad < 1) {
-        alert("La cantidad debe ser un número mayor o igual a 1.");
-        return;
-    }
 
     let articuloElegido = null;
     for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
@@ -292,6 +294,7 @@ function agregarVenta() {
     cargarTabla();
     pintarTablaArticulos();
     dibujarGrafico();
+    }
 }
 
 function pintarTablaVentas() {
@@ -362,6 +365,8 @@ function limpiarFormArticulo() {
 function limpiarFormVenta() {
     document.getElementById("idCantidad").value = "";
     document.getElementById("idMedio").selectedIndex = 0;
+    document.getElementById("idArticuloVenta").selectedIndex = 0;
+    document.getElementById("idInfluencerVenta").selectedIndex = 0;
 }
 
 
@@ -428,7 +433,7 @@ function dibujarGrafico() {
         burbuja.style.alignItems = "center";
         burbuja.style.justifyContent = "center";
         burbuja.style.textAlign = "center";
-        burbuja.innerHTML = "$" + montos[i];
+        burbuja.innerHTML = montos[i];
 
         let etiqueta = document.createElement("div");
         etiqueta.innerHTML = medios[i];

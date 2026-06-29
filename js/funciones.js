@@ -83,9 +83,8 @@ function cargarTabla() {
     let tbodyInflu = document.getElementById("tbodyInfluencers");
     tbodyInflu.innerHTML = "";
     let influ = sistema.darInfluencer();
-    let maxTotal = calcularMaxTotal();
-    let influencerVentaCara = calcularInfluencerVentaCara();
-
+    let maxTotal = sistema.calcularMaxTotal();
+    let influencerVentaCara = sistema.calcularInfluencerVentaCara();
 
     for (let elem of influ) {
         let fila = tbodyInflu.insertRow();
@@ -96,13 +95,14 @@ function cargarTabla() {
         let celdaComision = fila.insertCell();
         celdaComision.innerHTML = elem.comision + "%";
 
+        let totalElem = elem.calcularTotal(sistema.darVentas());
+
         let celdaTotal = fila.insertCell();
-        celdaTotal.innerHTML = "$ " + calcularTotalInfluencer(elem);
+        celdaTotal.innerHTML = "$ " + totalElem;
 
         let celdaEtiquetas = fila.insertCell();
-        let totalElem = calcularTotalInfluencer(elem);
         let medallas = "";
-        if (totalElem === 0) {
+        if (!elem.tieneVentas(sistema.darVentas())) {
             medallas = "🧊";
         } else if (totalElem === maxTotal && maxTotal > 0) {
             medallas = "🔥";
@@ -122,49 +122,16 @@ function cargarTabla() {
     }
 }
 
-function calcularMaxTotal() {
-    let maxTotal = 0;
-    let influ = sistema.darInfluencer();
-
-    for (let elem of influ) {
-        let total = calcularTotalInfluencer(elem);
-        if (total > maxTotal) {
-            maxTotal = total;
-        }
-    }
-    return maxTotal;
-}
-
-function calcularInfluencerVentaCara() {
-    let influencerVentaCara = "";
-    let maxVenta = 0;
-
-    for (let elem of sistema.darVentas()) {
-        let monto = elem.cantidad * elem.articulo.precio;
-        if (monto > maxVenta) {
-            maxVenta = monto;
-            influencerVentaCara = elem.influencer;
-        }
-    }
-    return influencerVentaCara;
-}
-
-function calcularTotalInfluencer(influencer) {
-    let total = 0;
-    for (let elem of sistema.darVentas()) {
-        if (elem.influencer === influencer) {
-            total = total + elem.cantidad * elem.articulo.precio * (influencer.comision / 100);
-        }
-    }
-    return total;
-}
-
 function mostrarDetalleComision(influencer) {
+    if (!influencer.tieneVentas(sistema.darVentas())) {
+        alert("Este influencer no tiene ventas registradas.");
+        return;
+    }
     let texto = "Ventas:\n";
     for (let elem of sistema.darVentas()) {
         if (elem.influencer === influencer) {
-            let total = elem.cantidad * elem.articulo.precio;
-            let comision = total * influencer.comision / 100;
+            let total = elem.calcularMonto();
+            let comision = elem.calcularComision();
             texto = texto + "Nro " + elem.numero + " - " + elem.articulo.codigo + " - " + elem.cantidad + " - $" + elem.articulo.precio + " c/u - Total: $" + total + " - Comisión: $" + comision + "\n";
         }
     }
@@ -229,7 +196,7 @@ function pintarTablaArticulos() {
 
     let maxUnidades = 0;
     for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
-        let unidades = calcularUnidadesVendidas(sistema.listaDeArticulos[i]);
+        let unidades = sistema.listaDeArticulos[i].calcularUnidadesVendidas(sistema.darVentas());
         if (unidades > maxUnidades) {
             maxUnidades = unidades;
         }
@@ -239,7 +206,7 @@ function pintarTablaArticulos() {
         let articulo = sistema.listaDeArticulos[i];
 
         let medalla = "";
-        if (calcularUnidadesVendidas(articulo) === maxUnidades && maxUnidades > 0) {
+        if (articulo.calcularUnidadesVendidas(sistema.darVentas()) === maxUnidades && maxUnidades > 0) {
             medalla = " ⭐";
         }
 
@@ -261,17 +228,6 @@ function cambiarOrdenArticulos() {
     }
     pintarTablaArticulos();
 }
-
-function calcularUnidadesVendidas(articulo) {
-    let total = 0;
-    for (let elem of sistema.darVentas()) {
-        if (elem.articulo === articulo) {
-            total = total + elem.cantidad;
-        }
-    }
-    return total;
-}
-
 
 // ===================== VENTAS =====================
 
@@ -460,6 +416,11 @@ function dibujarGrafico() {
         let radio = radioMax * porcentaje / 100;
         let diametro = radio * 2;
 
+        let columna = document.createElement("div");
+        columna.style.display = "flex";
+        columna.style.flexDirection = "column";
+        columna.style.alignItems = "center";
+
         let burbuja = document.createElement("div");
         burbuja.style.width = diametro + "px";
         burbuja.style.height = diametro + "px";
@@ -472,6 +433,13 @@ function dibujarGrafico() {
         burbuja.style.textAlign = "center";
         burbuja.innerHTML = "$" + montos[i];
 
-        contenedor.appendChild(burbuja);
+        let etiqueta = document.createElement("div");
+        etiqueta.innerHTML = medios[i];
+        etiqueta.style.marginTop = "6px";
+        etiqueta.style.textAlign = "center";
+
+        columna.appendChild(burbuja);
+        columna.appendChild(etiqueta);
+        contenedor.appendChild(columna);
     }
 }

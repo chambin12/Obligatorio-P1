@@ -151,14 +151,10 @@ function cerrarArticulo() {
 }
 
 function agregarArticulo() {
+    if (document.getElementById("idFormArticulo").reportValidity()){
     let codigo = document.getElementById("idCodigo").value;
     let descripcion = document.getElementById("idDescripcion").value;
     let precio = parseFloat(document.getElementById("idPrecio").value);
-
-    if (codigo === "" || descripcion === "" || isNaN(precio)) {
-        alert("Todos los campos son obligatorios.");
-        return;
-    }
 
     let codigoExiste = false;
     for (let i = 0; i < sistema.listaDeArticulos.length; i++) {
@@ -176,6 +172,7 @@ function agregarArticulo() {
 
     limpiarFormArticulo();
     pintarTablaArticulos();
+    }
 }
 
 function ordenarArticulos() {

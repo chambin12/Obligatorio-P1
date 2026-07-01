@@ -23,9 +23,6 @@ function inicio() {
     dibujarGrafico();
 }
 
-
-// ===================== INFLUENCERS =====================
-
 function abrirInfluencer() {
     document.getElementById("dlgInfluencer").showModal();
 }
@@ -144,9 +141,6 @@ function mostrarDetalleComision(influencer) {
     alert(texto);
 }
 
-
-// ===================== ARTÍCULOS =====================
-
 function abrirArticulo() {
     document.getElementById("dlgArticulo").showModal();
 }
@@ -232,7 +226,6 @@ function cambiarOrdenArticulos() {
     pintarTablaArticulos();
 }
 
-// ===================== VENTAS =====================
 
 function abrirVenta() {
     if (sistema.listaDeInfluencers.length === 0 || sistema.listaDeArticulos.length === 0) {
@@ -347,9 +340,6 @@ function cerrarVenta() {
     document.getElementById("dlgVenta").close();
 }
 
-
-// ===================== LIMPIAR FORMULARIOS =====================
-
 function limpiarFormInfluencer() {
     document.getElementById("idNombre").value = "";
     document.getElementById("idMail").value = "";
@@ -368,9 +358,6 @@ function limpiarFormVenta() {
     document.getElementById("idArticuloVenta").selectedIndex = 0;
     document.getElementById("idInfluencerVenta").selectedIndex = 0;
 }
-
-
-// ===================== DIBUJAR GRÁFICO =====================
 
 function dibujarGrafico() {
     let medios = ["1-Instagram", "2-YouTube", "3-X", "4-TikTok", "5-Facebook", "6-Otras"];
